@@ -7,7 +7,7 @@ namespace RodriguesBrothersMarket
         static void Main(string[] args)
         {
             int selection = 0;
-            string nUser, nPassword;
+            string nPosition, nUser, nPassword;
 
             //User one = new User(Position.manager, "João Rodrigues", "abc");
             //User two = new User(Position.manager, "Jorge Rodrigues", "def");
@@ -33,12 +33,19 @@ namespace RodriguesBrothersMarket
                         break;
 
                     case 2:
-                        
-                        Console.WriteLine("Insira o nome do Utilizador:");
+                        Console.WriteLine("**Criar Funcionário**");
+
+                        Console.WriteLine("Insira a função do novo utilizador:");
+                        nPosition = Console.ReadLine();
+
+                        Console.WriteLine("Insira o nome do novo utilizador:");
                         nUser = Console.ReadLine();
+
                         Console.WriteLine("Insira a password:");
                         nPassword = Console.ReadLine();
-                        uList.CreateUserSubMenu(nUser,nPassword);
+
+                        uList.CreateUser(nPosition,nUser,nPassword);
+                        uList.SaveToFileUsers();
                         Console.WriteLine(uList.ToString());
                         break;
 
