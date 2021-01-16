@@ -12,20 +12,12 @@ namespace RodriguesBrothersMarket
     
     class User
     {
-        //Variables:
+        //Atributos:
         public Position position;
         public string name;
         public string password;
 
-        //Constructor
-        public User(Position position, string name, string password)
-        {
-            this.position = position;
-            this.name = name;
-            this.password = password;
-        }
-
-        //List:
+        //Lists:
         public List<User> userList;
 
         public User()
@@ -33,7 +25,32 @@ namespace RodriguesBrothersMarket
             this.userList = new List<User>();
         }
 
-        //Methods:
-        
+        //Construtor
+        public User(string name, string password)
+        {
+            this.name = name;
+            this.password = password;
+        }
+
+        //Metodos:
+        public User CreateUserSubMenu(string name, string password)
+        {
+            User newUser = new User(name, password);
+            this.userList.Add(newUser);
+            return newUser;
+
+            //Console.WriteLine("Já estou a criar o funcionário");
+        }
+
+        public override string ToString()
+        {
+            string result = "NOME     |     PASSWORD" + "\n";
+            foreach (User u in this.userList)
+            {
+                result += u.name +"   |   " + u.password;
+            }
+            return result;
+        }
+
     }
 }

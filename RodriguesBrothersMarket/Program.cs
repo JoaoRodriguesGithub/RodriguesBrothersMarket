@@ -6,43 +6,54 @@ namespace RodriguesBrothersMarket
     {
         static void Main(string[] args)
         {
-            User one = new User(Position.manager, "João Rodrigues", "abc");
-            User two = new User(Position.manager, "Jorge Rodrigues", "def");
+            int selection = 0;
+            string nUser, nPassword;
 
-            int mainOption = 0;
-                while (mainOption != 3)
+            //User one = new User(Position.manager, "João Rodrigues", "abc");
+            //User two = new User(Position.manager, "Jorge Rodrigues", "def");
+
+            User uList = new User();
+
+
+            while (selection != 3)
+            {
+                Console.WriteLine("**RodriguesBrothersMarket**");
+                Console.WriteLine("1 - Login");
+                Console.WriteLine("2 - Criar Funcionário");
+                Console.WriteLine("3 - Sair");
+
+                selection = int.Parse(Console.ReadLine());
+                Console.Clear();
+
+
+                switch (selection)
                 {
-                    Console.WriteLine("**RodriguesBrothersMarket**");
-                    Console.WriteLine("1 - Login");
-                    Console.WriteLine("2 - Criar Funcionário");
-                    Console.WriteLine("3 - Sair");
+                    case 1:
+                        Console.WriteLine("Vai entrar na opção Login");
+                        break;
 
-                mainOption = int.Parse(Console.ReadLine());
-                    Console.Clear();
+                    case 2:
+                        
+                        Console.WriteLine("Insira o nome do Utilizador:");
+                        nUser = Console.ReadLine();
+                        Console.WriteLine("Insira a password:");
+                        nPassword = Console.ReadLine();
+                        uList.CreateUserSubMenu(nUser,nPassword);
+                        Console.WriteLine(uList.ToString());
+                        break;
 
-                    switch (mainOption)
-                    {
-                        case 1:
-                            Console.WriteLine("Testar Login");
-                            break;
+                    case 3:
+                        Console.WriteLine("Vai Sair");
+                        break;
 
-                        case 2:
-                            Console.WriteLine("Testar criar Funcionário");
-                            break;
-
-                        case 3:
-                            Console.WriteLine("Testar Sair");
-                            break;
-
-                        default:
-                            Console.WriteLine("Escolha uma opção válida");
-                            break;
-                    }
-                    Console.ReadKey();
-                    Console.Clear();
+                    default:
+                        Console.WriteLine("Opção Inválida. Tente novamente");
+                        break;
                 }
-
-                Console.WriteLine("Obrigado pela sua preferência");
+                Console.ReadKey();
+                Console.Clear(); 
+            }
+            Console.WriteLine("Obrigado Pela Preferência | R&R Market!!!");
         }
     }
 }
