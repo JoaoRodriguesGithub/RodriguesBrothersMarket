@@ -30,6 +30,7 @@ namespace RodriguesBrothersMarket
         }
 
         //Metodos:
+        //para criar utilizadores e gravar na lista de utilizadores
         public User CreateUser(string position, string name, string password)
         {
             User newUser = new User(position, name, password);
@@ -37,12 +38,27 @@ namespace RodriguesBrothersMarket
             return newUser;
         }
 
+        //Efetuar login com com verificação
+        public User Login(string name, string password)
+        {
+            foreach (User u in this.userList)
+            {
+                if (u.name.ToLower().Equals(name.ToLower()) && u.password.ToLower().Equals(password.ToLower()))
+                {
+                    return u;
+                }
+            }
+            return null;
+        }
+
+
+        //Metodo apenas para referência
         public override string ToString()
         {
             string result = "|     FUNÇÃO     |     NOME     |     PASSWORD     |" + "\n";
             foreach (User u in this.userList)
             {
-                result += u.position + "     |     " + u.name + "     |     " + u.password;
+                result += u.position + "     |     " + u.name + "     |     " + u.password + "\n";
             }
             return result;
         }

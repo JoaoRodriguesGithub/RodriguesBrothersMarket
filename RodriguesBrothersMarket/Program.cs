@@ -9,11 +9,15 @@ namespace RodriguesBrothersMarket
             int selection = 0;
             string nPosition, nUser, nPassword;
 
-            //User one = new User(Position.manager, "João Rodrigues", "abc");
-            //User two = new User(Position.manager, "Jorge Rodrigues", "def");
+            User testerManager = new User("gerente", "jorge", "aaa");
+            User testerReplanisher = new User("repositor", "alberto", "bbb");
+            User testerCashier = new User("caixa", "maria", "ccc");
 
             User uList = new User();
 
+            uList.userList.Add(testerManager);
+            uList.userList.Add(testerReplanisher);
+            uList.userList.Add(testerCashier);
 
             while (selection != 3)
             {
@@ -29,7 +33,23 @@ namespace RodriguesBrothersMarket
                 switch (selection)
                 {
                     case 1:
-                        Console.WriteLine("Vai entrar na opção Login");
+                        Console.WriteLine("**Efetue o seu login**");
+
+                        Console.WriteLine("Insire o nome de utilizador: ");
+                        nUser = Console.ReadLine();
+                        Console.WriteLine("Insira a password: ");
+                        nPassword = Console.ReadLine();
+
+                        User userMatch = uList.Login(nUser, nPassword);
+                        if (userMatch != null)
+                        {
+                            Console.WriteLine("Sucesso");
+                            MenuManager();
+                        }
+                        else
+                        {
+                            Console.WriteLine("Utilizador ou password inválidas. Tente novamente");
+                        }
                         break;
 
                     case 2:
@@ -45,6 +65,7 @@ namespace RodriguesBrothersMarket
                         nPassword = Console.ReadLine();
 
                         uList.CreateUser(nPosition,nUser,nPassword);
+                       
                         uList.SaveToFileUsers();
                         Console.WriteLine(uList.ToString());
                         break;
@@ -61,6 +82,41 @@ namespace RodriguesBrothersMarket
                 Console.Clear(); 
             }
             Console.WriteLine("Obrigado Pela Preferência | R&R Market!!!");
+
+            static void MenuManager()
+            {
+                int managerSelection =0;
+                while (managerSelection != 3)
+                {
+                    Console.WriteLine("**MENU DO GERENTE**");
+
+                    Console.WriteLine("1 - Apagar Funcionários");
+                    Console.WriteLine("2 - Vender Produtos");
+                    Console.WriteLine("3 - Voltar");
+
+                    managerSelection = int.Parse(Console.ReadLine());
+                    Console.Clear();
+
+                    switch (managerSelection)
+                    {
+                        case 1:
+                            Console.WriteLine("Funcionalidade de Apagar funcionários");
+                            break;
+
+                        case 2:
+                            Console.WriteLine("Funcionalidade de Vender Produtos");
+                            break;
+
+                        case 3: return;
+
+                        default:
+                            Console.WriteLine("Opção Inválida. Tente novamente");
+                            break;
+                    }
+
+                }
+
+            }
         }
     }
 }
