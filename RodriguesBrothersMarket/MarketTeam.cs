@@ -7,7 +7,7 @@ namespace RodriguesBrothersMarket
 {
     class MarketTeam
     {
-        //Lists:
+        //Lista de Utilizadores:
         public List<User> userList;
 
         public MarketTeam()
@@ -16,7 +16,8 @@ namespace RodriguesBrothersMarket
         }
 
         //Metodos:
-        //para criar utilizadores e gravar na lista de utilizadores
+
+        //Para criar utilizadores e gravar na lista de utilizadores:
         public User CreateUser(string position, string name, string password)
         {
             User newUser = new User(position, name, password);
@@ -24,7 +25,7 @@ namespace RodriguesBrothersMarket
             return newUser;
         }
 
-        //Efetuar login com com verificação
+        //Para efetuar login com com verificação nome e password:
         public User Login(string name, string password)
         {
             foreach (User u in this.userList)

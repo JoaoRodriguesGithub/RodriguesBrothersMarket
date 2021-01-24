@@ -8,16 +8,20 @@ namespace RodriguesBrothersMarket
         {
             int selection = 0;
             string nPosition, nUser, nPassword;
-
+            
+            /*
             User testerManager = new User("gerente", "jorge", "aaa");
-            User testerReplanisher = new User("repositor", "alberto", "bbb");
-            User testerCashier = new User("caixa", "maria", "ccc");
-
+            //User testerReplanisher = new User("repositor", "alberto", "bbb");
+            //User testerCashier = new User("caixa", "maria", "ccc");
+            */
             MarketTeam uList = new MarketTeam();
-
+            uList.ReadUsersFile();
+            
+            /*
             uList.userList.Add(testerManager);
             uList.userList.Add(testerReplanisher);
             uList.userList.Add(testerCashier);
+            */
 
             while (selection != 3)
             {
@@ -86,7 +90,7 @@ namespace RodriguesBrothersMarket
             
             static void MenuManager()
             {
-                int managerSelection =0;
+                int managerSelection = 0;
                 while (managerSelection != 3)
                 {
                     Console.WriteLine("     **MENU DO GERENTE**");
@@ -114,9 +118,73 @@ namespace RodriguesBrothersMarket
                             Console.WriteLine("Opção Inválida. Tente novamente");
                             break;
                     }
-
                 }
 
+                static void MenuReplanisher()
+                {
+                    int replanisherSelection = 0;
+                    while (replanisherSelection != 4)
+                    {
+                        Console.WriteLine("     **MENU DO REPOSITOR**");
+
+                        Console.WriteLine("1 - Adicionar novos produtos ao stock");
+                        Console.WriteLine("2 - Remover produtos ao stock");
+                        Console.WriteLine("3 - Limpar stock");
+                        Console.WriteLine("4 - Voltar");
+
+                        replanisherSelection = int.Parse(Console.ReadLine());
+                        Console.Clear();
+
+                        switch (replanisherSelection)
+                        {
+                            case 1:
+                                Console.WriteLine("Funcionalidade de adicionar novos produtos ao stock");
+                                break;
+
+                            case 2:
+                                Console.WriteLine("Funcionalidade Remover produtos ao stock");
+                                break;
+
+                            case 3:
+                                Console.WriteLine("Funcionalidade limpar stock");
+                                break;
+
+                            case 4: return;
+
+                            default:
+                                Console.WriteLine("Opção Inválida. Tente novamente");
+                                break;
+                        }
+                    }
+                }
+
+                static void MenuCashier()
+                {
+                    int cashierSelection = 0;
+                    while (cashierSelection != 4)
+                    {
+                        Console.WriteLine("     **MENU DO CAIXA**");
+
+                        Console.WriteLine("1 - Vender Produtos");
+                        Console.WriteLine("2 - Voltar");
+
+                        cashierSelection = int.Parse(Console.ReadLine());
+                        Console.Clear();
+
+                        switch (cashierSelection)
+                        {
+                            case 1:
+                                Console.WriteLine("Funcionalidade que permite venda de produtos");
+                                break;
+
+                            case 2: return;
+
+                            default:
+                                Console.WriteLine("Opção Inválida. Tente novamente");
+                                break;
+                        }
+                    }
+                }
             }
         }
     }
