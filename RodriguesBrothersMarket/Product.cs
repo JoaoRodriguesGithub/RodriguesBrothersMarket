@@ -8,9 +8,9 @@ namespace RodriguesBrothersMarket
     {
         public string productName;
         public int productQnt;
-        public float price;
+        public int price;
 
-        public Product(string productName, int productQnt, float price)
+        public Product(string productName, int productQnt, int price)
         {
             this.productName = productName;
             this.productQnt = productQnt;

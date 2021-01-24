@@ -8,21 +8,13 @@ namespace RodriguesBrothersMarket
         {
             int selection = 0;
             string nPosition, nUser, nPassword;
+            string nName;
+            int nProductQnt;
+            int nPrice;
 
-            /*
-            User testerManager = new User("gerente", "jorge", "aaa");
-            //User testerReplanisher = new User("repositor", "alberto", "bbb");
-            //User testerCashier = new User("caixa", "maria", "ccc");
-            */
             MarketTeam uList = new MarketTeam();
-            uList.ReadUsersFile();
-
-
-            /*
-            uList.userList.Add(testerManager);
-            uList.userList.Add(testerReplanisher);
-            uList.userList.Add(testerCashier);
-            */
+            Stock pList = new Stock();
+            
 
             while (selection != 3)
             {
@@ -34,10 +26,10 @@ namespace RodriguesBrothersMarket
                 selection = int.Parse(Console.ReadLine());
                 Console.Clear();
 
-
                 switch (selection)
                 {
                     case 1:
+                        uList.ReadUsersFile();
                         Console.WriteLine("     **Efetue o seu login**");
 
                         Console.WriteLine("Insira a função do utilizador: ");
@@ -53,7 +45,7 @@ namespace RodriguesBrothersMarket
                             if (userMatch.position == "gerente")
                             {
                                 Console.WriteLine("OPERAÇÂO LOGIN: Efetuada com sucesso!");
-                                MenuManager();
+                                MenuManager(uList);
                             }
                             if (userMatch.position == "repositor")
                             {
@@ -65,10 +57,7 @@ namespace RodriguesBrothersMarket
                                 Console.WriteLine("OPERAÇÂO LOGIN: Efetuada com sucesso!");
                                 MenuCashier();
                             }
-                        }
-                        else
-                        {
-                            Console.WriteLine("Utilizador ou password inválidas. Tente novamente");
+
                         }
                         break;
 
@@ -87,7 +76,7 @@ namespace RodriguesBrothersMarket
                         uList.CreateUser(nPosition, nUser, nPassword);
 
                         uList.SaveToFileUsers();
-                        Console.WriteLine(uList.ToString());
+                        //Console.WriteLine(uList.ToString());
                         break;
 
                     case 3:
@@ -98,13 +87,14 @@ namespace RodriguesBrothersMarket
                         Console.WriteLine("Opção Inválida. Tente novamente");
                         break;
                 }
+                
                 Console.ReadKey();
                 Console.Clear();
             }
             Console.WriteLine("Obrigado Pela Preferência | R&R Market!!!");
 
 
-            void MenuManager()
+            static void MenuManager(MarketTeam uList)
             {
                 int managerSelection = 0;
                 while (managerSelection != 3)
@@ -138,6 +128,7 @@ namespace RodriguesBrothersMarket
 
                         case 2:
                             Console.WriteLine("Funcionalidade de Vender Produtos");
+                            DisplayMenuForSale();
                             break;
 
                         case 3: return;
@@ -149,14 +140,14 @@ namespace RodriguesBrothersMarket
                 }
             }
 
-            static void MenuReplanisher()
+             void MenuReplanisher()
             {
                 int replanisherSelection = 0;
                 while (replanisherSelection != 4)
                 {
                     Console.WriteLine("     **MENU DO REPOSITOR**");
 
-                    Console.WriteLine("1 - Adicionar novos produtos ao stock");
+                    Console.WriteLine("1 - Adicionar um novo produto ao stock");
                     Console.WriteLine("2 - Remover produtos ao stock");
                     Console.WriteLine("3 - Limpar stock");
                     Console.WriteLine("4 - Voltar");
@@ -167,23 +158,44 @@ namespace RodriguesBrothersMarket
                     switch (replanisherSelection)
                     {
                         case 1:
-                            Console.WriteLine("Funcionalidade de adicionar novos produtos ao stock");
+                            Console.WriteLine("Intoduza o nome do produto: ");
+                            nName = Console.ReadLine();
+                            Console.WriteLine("Introduza a quantidade deste produto: ");
+                            nProductQnt = int.Parse(Console.ReadLine());
+                            Console.WriteLine("Introduza o preço do produto: ");
+                            nPrice = int.Parse(Console.ReadLine());
+                            pList.CreateProduct(nName,nProductQnt,nPrice);
+                            pList.SaveToFileStock();
                             break;
 
                         case 2:
-                            Console.WriteLine("Funcionalidade Remover produtos ao stock");
+                            Console.WriteLine("Qual é o produto que pretende elimiar do stock: ");
+                            string replanisherInput = Console.ReadLine();
+                            bool result = pList.DeleteProductFromList(replanisherInput);
+                            if (result)
+                            {
+                                Console.WriteLine("O Produto foi eliminado do stock com sucesso!");
+                            }
+                            else
+                            {
+                                Console.WriteLine("Operação sem sucesso!");
+                            }
                             break;
 
                         case 3:
-                            Console.WriteLine("Funcionalidade limpar stock");
+                            if (pList.ClearStock())
+                            {
+                                Console.WriteLine("O stock foi eliminado com sucesso!");
+                            }
                             break;
 
                         case 4: return;
-
+                            
                         default:
                             Console.WriteLine("Opção Inválida. Tente novamente");
                             break;
                     }
+                    pList.SaveToFileStock();
                 }
             }
 
@@ -204,6 +216,7 @@ namespace RodriguesBrothersMarket
                     {
                         case 1:
                             Console.WriteLine("Funcionalidade que permite venda de produtos");
+                            DisplayMenuForSale();
                             break;
 
                         case 2: return;
@@ -215,6 +228,41 @@ namespace RodriguesBrothersMarket
 
                 }
             }
+
+            static void DisplayMenuForSale()
+            {
+                int selection = 0;
+                while (selection != 4)
+                {
+                    Console.WriteLine("     **MENU DISPLAY DE PRODUTOS PARA VENDA**");
+                    Console.WriteLine("1 - Produtos Congelados");
+                    Console.WriteLine("Vai entrar aqui o print das listas de produtos da categoria Congelados");
+                    Console.WriteLine("2 - Produtos Prateleira");
+                    Console.WriteLine("Vai entrar aqui o print das listas de produtos da categoria Prateleira");
+                    Console.WriteLine("3 - Produtos Enlatados");
+                    Console.WriteLine("Vai entrar aqui o print das listas de produtos da categoria Enlatados");
+                    Console.WriteLine("4 - Voltar");
+
+                    selection = int.Parse(Console.ReadLine());
+                    Console.Clear();
+                }
+            }
+
+            static void MenuForSales()
+            {
+                int selection = 0;
+                while (selection != 4)
+                {
+                    Console.WriteLine("     **VENDA DE PRODUTOS**");
+                    Console.WriteLine("Vai imprimir um to string de congelados");
+
+                    Console.WriteLine("1 - Voltar");
+
+                    selection = int.Parse(Console.ReadLine());
+                    Console.Clear();
+                }
+            }
+
         }
     }
 }

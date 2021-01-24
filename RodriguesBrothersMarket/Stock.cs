@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 
 namespace RodriguesBrothersMarket
@@ -16,7 +17,7 @@ namespace RodriguesBrothersMarket
         //Metodos:
 
         //Para criar novo produto e gravar na lista de produtos:
-        public Product CreateProduct(string productName, int productQnt, float price)
+        public Product CreateProduct(string productName, int productQnt, int price)
         {
             Product newProduct = new Product(productName, productQnt, price);
             this.productList.Add(newProduct);
@@ -47,5 +48,23 @@ namespace RodriguesBrothersMarket
             this.productList.Clear();
             return true;
         }
+
+        //Método para gravar lista de stock:
+        public void SaveToFileStock()
+        {
+            string path = Directory.GetCurrentDirectory();
+
+            string fileName = "/Stock.txt";
+
+            StreamWriter streamWriter = new StreamWriter(path + fileName, false);
+
+            foreach (Product item in this.productList)
+            {
+                streamWriter.Write(item.productName + "," + item.productQnt + "," + item.price + "\n");
+            }
+
+            streamWriter.Close();
+        }
+
     }
 }
