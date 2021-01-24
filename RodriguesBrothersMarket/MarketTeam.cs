@@ -67,7 +67,7 @@ namespace RodriguesBrothersMarket
             {
                 this.userList.RemoveAt(indexToRemove);
             }
-            return false;
+            return true;
         }
 
         //Método para Gravar Utilizadores

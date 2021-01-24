@@ -132,8 +132,8 @@ namespace RodriguesBrothersMarket
                             {
                                 Console.WriteLine("Operação sem sucesso!");
                             }
-                            //Console.WriteLine("Funcionalidade de Apagar funcionários");
-                            // uList.SaveToFileUsers();
+                         
+                            uList.SaveToFileUsers();
                             break;
 
                         case 2:
