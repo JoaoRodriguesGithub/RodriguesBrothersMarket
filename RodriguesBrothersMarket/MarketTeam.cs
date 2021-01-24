@@ -25,12 +25,14 @@ namespace RodriguesBrothersMarket
             return newUser;
         }
 
-        //Para efetuar login com com verificação nome e password:
-        public User Login(string name, string password)
+        //Para efetuar login com verificação nome e password:
+        
+        public User Login(string position, string name, string password)
         {
             foreach (User u in this.userList)
             {
-                if (u.name.ToLower().Equals(name.ToLower()) && u.password.ToLower().Equals(password.ToLower()))
+                //BUGLIST: posição está sensivel a maiusculas e password nao está sensivel a maiusculas
+                if (u.position.ToLower().Equals(position.ToLower()) && u.name.ToLower().Equals(name.ToLower()) && u.password.ToLower().Equals(password.ToLower()))
                 {
                     return u;
                 }
@@ -47,6 +49,25 @@ namespace RodriguesBrothersMarket
                 result += u.position + "     |     " + u.name + "     |     " + u.password + "\n";
             }
             return result;
+        }
+
+        //Método para Apagar Utilizadores:
+        public bool RemoveFromUsersList(string name)
+        {
+            int indexToRemove = -1;
+            for (int i = 0; i < userList.Count; i++)
+            {
+                if (this.userList[i].name.ToLower().Equals(name.ToLower()))
+                {
+                    indexToRemove = i;
+                    return true;
+                }
+            }
+            if (indexToRemove != -1)
+            {
+                this.userList.RemoveAt(indexToRemove);
+            }
+            return false;
         }
 
         //Método para Gravar Utilizadores

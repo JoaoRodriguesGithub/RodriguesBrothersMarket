@@ -5,7 +5,6 @@ using System.Text;
 
 namespace RodriguesBrothersMarket
 {
-    
     class User
     {
         //Atributos:

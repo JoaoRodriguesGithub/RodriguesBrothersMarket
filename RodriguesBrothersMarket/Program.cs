@@ -8,7 +8,7 @@ namespace RodriguesBrothersMarket
         {
             int selection = 0;
             string nPosition, nUser, nPassword;
-            
+
             /*
             User testerManager = new User("gerente", "jorge", "aaa");
             //User testerReplanisher = new User("repositor", "alberto", "bbb");
@@ -16,7 +16,8 @@ namespace RodriguesBrothersMarket
             */
             MarketTeam uList = new MarketTeam();
             uList.ReadUsersFile();
-            
+
+
             /*
             uList.userList.Add(testerManager);
             uList.userList.Add(testerReplanisher);
@@ -39,16 +40,31 @@ namespace RodriguesBrothersMarket
                     case 1:
                         Console.WriteLine("     **Efetue o seu login**");
 
-                        Console.WriteLine("Insire o nome de utilizador: ");
+                        Console.WriteLine("Insira a função do utilizador: ");
+                        nPosition = Console.ReadLine();
+                        Console.WriteLine("Insira o nome de utilizador: ");
                         nUser = Console.ReadLine();
                         Console.WriteLine("Insira a password: ");
                         nPassword = Console.ReadLine();
 
-                        User userMatch = uList.Login(nUser, nPassword);
-                        if (userMatch != null)
+                        User userMatch = uList.Login(nPosition, nUser, nPassword);
+                        if (userMatch.position == nPosition)
                         {
-                            Console.WriteLine("Sucesso");
-                            MenuManager();
+                            if (userMatch.position == "gerente")
+                            {
+                                Console.WriteLine("OPERAÇÂO LOGIN: Efetuada com sucesso!");
+                                MenuManager();
+                            }
+                            if (userMatch.position == "repositor")
+                            {
+                                Console.WriteLine("OPERAÇÂO LOGIN: Efetuada com sucesso!");
+                                MenuReplanisher();
+                            }
+                            if (userMatch.position == "caixa")
+                            {
+                                Console.WriteLine("OPERAÇÂO LOGIN: Efetuada com sucesso!");
+                                MenuCashier();
+                            }
                         }
                         else
                         {
@@ -68,8 +84,8 @@ namespace RodriguesBrothersMarket
                         Console.WriteLine("Insira a password:");
                         nPassword = Console.ReadLine();
 
-                        uList.CreateUser(nPosition,nUser,nPassword);
-                       
+                        uList.CreateUser(nPosition, nUser, nPassword);
+
                         uList.SaveToFileUsers();
                         Console.WriteLine(uList.ToString());
                         break;
@@ -83,12 +99,12 @@ namespace RodriguesBrothersMarket
                         break;
                 }
                 Console.ReadKey();
-                Console.Clear(); 
+                Console.Clear();
             }
             Console.WriteLine("Obrigado Pela Preferência | R&R Market!!!");
 
-            
-            static void MenuManager()
+
+            void MenuManager()
             {
                 int managerSelection = 0;
                 while (managerSelection != 3)
@@ -105,7 +121,19 @@ namespace RodriguesBrothersMarket
                     switch (managerSelection)
                     {
                         case 1:
-                            Console.WriteLine("Funcionalidade de Apagar funcionários");
+                            Console.WriteLine("Introduza o nome do funcionário que pretende eliminar");
+                            string managerInput = Console.ReadLine();
+                            bool result = uList.RemoveFromUsersList(managerInput);
+                            if (result)
+                            {
+                                Console.WriteLine("Utilizador eliminado com sucesso!");
+                            }
+                            else
+                            {
+                                Console.WriteLine("Operação sem sucesso!");
+                            }
+                            //Console.WriteLine("Funcionalidade de Apagar funcionários");
+                            // uList.SaveToFileUsers();
                             break;
 
                         case 2:
@@ -119,71 +147,72 @@ namespace RodriguesBrothersMarket
                             break;
                     }
                 }
+            }
 
-                static void MenuReplanisher()
+            static void MenuReplanisher()
+            {
+                int replanisherSelection = 0;
+                while (replanisherSelection != 4)
                 {
-                    int replanisherSelection = 0;
-                    while (replanisherSelection != 4)
+                    Console.WriteLine("     **MENU DO REPOSITOR**");
+
+                    Console.WriteLine("1 - Adicionar novos produtos ao stock");
+                    Console.WriteLine("2 - Remover produtos ao stock");
+                    Console.WriteLine("3 - Limpar stock");
+                    Console.WriteLine("4 - Voltar");
+
+                    replanisherSelection = int.Parse(Console.ReadLine());
+                    Console.Clear();
+
+                    switch (replanisherSelection)
                     {
-                        Console.WriteLine("     **MENU DO REPOSITOR**");
+                        case 1:
+                            Console.WriteLine("Funcionalidade de adicionar novos produtos ao stock");
+                            break;
 
-                        Console.WriteLine("1 - Adicionar novos produtos ao stock");
-                        Console.WriteLine("2 - Remover produtos ao stock");
-                        Console.WriteLine("3 - Limpar stock");
-                        Console.WriteLine("4 - Voltar");
+                        case 2:
+                            Console.WriteLine("Funcionalidade Remover produtos ao stock");
+                            break;
 
-                        replanisherSelection = int.Parse(Console.ReadLine());
-                        Console.Clear();
+                        case 3:
+                            Console.WriteLine("Funcionalidade limpar stock");
+                            break;
 
-                        switch (replanisherSelection)
-                        {
-                            case 1:
-                                Console.WriteLine("Funcionalidade de adicionar novos produtos ao stock");
-                                break;
+                        case 4: return;
 
-                            case 2:
-                                Console.WriteLine("Funcionalidade Remover produtos ao stock");
-                                break;
-
-                            case 3:
-                                Console.WriteLine("Funcionalidade limpar stock");
-                                break;
-
-                            case 4: return;
-
-                            default:
-                                Console.WriteLine("Opção Inválida. Tente novamente");
-                                break;
-                        }
+                        default:
+                            Console.WriteLine("Opção Inválida. Tente novamente");
+                            break;
                     }
                 }
+            }
 
-                static void MenuCashier()
+            static void MenuCashier()
+            {
+                int cashierSelection = 0;
+                while (cashierSelection != 4)
                 {
-                    int cashierSelection = 0;
-                    while (cashierSelection != 4)
+                    Console.WriteLine("     **MENU DO CAIXA**");
+
+                    Console.WriteLine("1 - Vender Produtos");
+                    Console.WriteLine("2 - Voltar");
+
+                    cashierSelection = int.Parse(Console.ReadLine());
+                    Console.Clear();
+
+                    switch (cashierSelection)
                     {
-                        Console.WriteLine("     **MENU DO CAIXA**");
+                        case 1:
+                            Console.WriteLine("Funcionalidade que permite venda de produtos");
+                            break;
 
-                        Console.WriteLine("1 - Vender Produtos");
-                        Console.WriteLine("2 - Voltar");
+                        case 2: return;
 
-                        cashierSelection = int.Parse(Console.ReadLine());
-                        Console.Clear();
-
-                        switch (cashierSelection)
-                        {
-                            case 1:
-                                Console.WriteLine("Funcionalidade que permite venda de produtos");
-                                break;
-
-                            case 2: return;
-
-                            default:
-                                Console.WriteLine("Opção Inválida. Tente novamente");
-                                break;
-                        }
+                        default:
+                            Console.WriteLine("Opção Inválida. Tente novamente");
+                            break;
                     }
+
                 }
             }
         }
