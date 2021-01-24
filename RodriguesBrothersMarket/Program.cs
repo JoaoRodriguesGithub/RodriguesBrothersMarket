@@ -13,7 +13,7 @@ namespace RodriguesBrothersMarket
             User testerReplanisher = new User("repositor", "alberto", "bbb");
             User testerCashier = new User("caixa", "maria", "ccc");
 
-            User uList = new User();
+            MarketTeam uList = new MarketTeam();
 
             uList.userList.Add(testerManager);
             uList.userList.Add(testerReplanisher);
@@ -21,7 +21,7 @@ namespace RodriguesBrothersMarket
 
             while (selection != 3)
             {
-                Console.WriteLine("**RodriguesBrothersMarket**");
+                Console.WriteLine("     **RodriguesBrothersMarket**");
                 Console.WriteLine("1 - Login");
                 Console.WriteLine("2 - Criar Funcionário");
                 Console.WriteLine("3 - Sair");
@@ -33,7 +33,7 @@ namespace RodriguesBrothersMarket
                 switch (selection)
                 {
                     case 1:
-                        Console.WriteLine("**Efetue o seu login**");
+                        Console.WriteLine("     **Efetue o seu login**");
 
                         Console.WriteLine("Insire o nome de utilizador: ");
                         nUser = Console.ReadLine();
@@ -53,7 +53,7 @@ namespace RodriguesBrothersMarket
                         break;
 
                     case 2:
-                        Console.WriteLine("**Criar Funcionário**");
+                        Console.WriteLine("     **Criar Funcionário**");
 
                         Console.WriteLine("Insira a função do novo utilizador:");
                         nPosition = Console.ReadLine();
@@ -83,12 +83,13 @@ namespace RodriguesBrothersMarket
             }
             Console.WriteLine("Obrigado Pela Preferência | R&R Market!!!");
 
+            
             static void MenuManager()
             {
                 int managerSelection =0;
                 while (managerSelection != 3)
                 {
-                    Console.WriteLine("**MENU DO GERENTE**");
+                    Console.WriteLine("     **MENU DO GERENTE**");
 
                     Console.WriteLine("1 - Apagar Funcionários");
                     Console.WriteLine("2 - Vender Produtos");
