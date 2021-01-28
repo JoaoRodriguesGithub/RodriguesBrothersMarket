@@ -16,8 +16,16 @@ namespace RodriguesBrothersMarket
 
             MarketTeam uList = new MarketTeam();
             Stock pList = new Stock();
-            Cart clist = new Cart(); 
+            Invoice n = Invoice.ReadInvoice();
+            Console.WriteLine(n.invoiceList[0].productName);
 
+            /*
+            n.invoiceList.Add(new InvoiceLine("batatas", 3, 6));
+            n.invoiceList.Add(new InvoiceLine("arroz", 7, 1));
+            n.invoiceList.Add(new InvoiceLine("atum", 10, 5));
+            
+            n.SaveInvoice();
+            */
             uList.ReadUsersFile();
 
             pList.ReadFromFileStock();
@@ -232,7 +240,6 @@ namespace RodriguesBrothersMarket
                             Console.WriteLine("Opção Inválida. Tente novamente");
                             break;
                     }
-
                 }
             }
 
@@ -244,17 +251,12 @@ namespace RodriguesBrothersMarket
                     Console.WriteLine("     **VENDA DE PRODUTOS**");
                     
                     Console.WriteLine(pList.ToString());
-                    Console.WriteLine("1 - Adicionar Congelados ao carrinho");
-                    Console.WriteLine("Vai entrar aqui o print das listas de produtos da categoria Congelados");
-                    Console.WriteLine("2 - Adicionar Prateleira ao carrinho");
-                    Console.WriteLine("Vai entrar aqui o print das listas de produtos da categoria Prateleira");
-                    Console.WriteLine("3 - Adicionar Enlatados ao carrinho");
-                    Console.WriteLine("Vai entrar aqui o print das listas de produtos da categoria Enlatados");
-
+                    Console.WriteLine("1 - Adicionar Produtos ao carrinho");
+       
                     Console.WriteLine("4 - Voltar");
 
                     selection = int.Parse(Console.ReadLine());
-                    Console.Clear();
+                    //Console.Clear();
 
                     switch (selection)
                     {
@@ -267,9 +269,14 @@ namespace RodriguesBrothersMarket
                             Product productMatch = pList.SelectProduct(saleProductName, saleProductQnt);
                             if (productMatch != null)
                             {
-                                if (productMatch.productName == saleProductName && saleProductQnt <= pList.productList)
+                                if (productMatch.productName == saleProductName && productMatch.productQnt >= saleProductQnt)
                                 {
-                                    
+                                    productMatch.productQnt -= saleProductQnt;
+                                    n.invoiceList.Add(new InvoiceLine(productMatch.productName, saleProductQnt, productMatch.price));
+                                }
+                                else
+                                {
+                                    Console.WriteLine("lamento mas só dipomos de " + productMatch.productQnt + ".");
                                 }
                             }
                             break;

@@ -5,6 +5,7 @@ using System.Text;
 
 namespace RodriguesBrothersMarket
 {
+    [Serializable]
     enum ProductCategory
     {
         Frozen,
@@ -13,7 +14,7 @@ namespace RodriguesBrothersMarket
 
         Can,
     }
-
+    [Serializable]
     class Product
     {
         public ProductCategory productCategory;
