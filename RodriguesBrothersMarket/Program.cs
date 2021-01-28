@@ -11,9 +11,12 @@ namespace RodriguesBrothersMarket
             string nName, nCategory;
             int nProductQnt;
             int nPrice;
+            string saleProductName;
+            int saleProductQnt;
 
             MarketTeam uList = new MarketTeam();
             Stock pList = new Stock();
+            Cart clist = new Cart(); 
 
             uList.ReadUsersFile();
 
@@ -130,8 +133,7 @@ namespace RodriguesBrothersMarket
                             break;
 
                         case 2:
-                            Console.WriteLine("Funcionalidade de Vender Produtos");
-                            DisplayMenuForSale();
+                            Console.WriteLine("Funcionalidade de Vender Produtos");  
                             break;
 
                         case 3: return;
@@ -161,7 +163,7 @@ namespace RodriguesBrothersMarket
                     switch (replanisherSelection)
                     {
                         case 1:
-                            Console.WriteLine("Intoduza a categoria: ");
+                            Console.WriteLine("Intoduza a categoria(Congelados|Prateleira|Enlatados): ");
                             nCategory = Console.ReadLine();
                             Console.WriteLine("Intoduza o nome do produto: ");
                             nName = Console.ReadLine();
@@ -204,7 +206,7 @@ namespace RodriguesBrothersMarket
                 }
             }
 
-            static void MenuCashier()
+            void MenuCashier()
             {
                 int cashierSelection = 0;
                 while (cashierSelection != 4)
@@ -220,8 +222,8 @@ namespace RodriguesBrothersMarket
                     switch (cashierSelection)
                     {
                         case 1:
+                            MenuForSales();
                             Console.WriteLine("Funcionalidade que permite venda de produtos");
-                            DisplayMenuForSale();
                             break;
 
                         case 2: return;
@@ -234,47 +236,54 @@ namespace RodriguesBrothersMarket
                 }
             }
 
-            static void DisplayMenuForSale()
-            {
-                int selection = 0;
-                while (selection != 4)
-                {
-                    Console.WriteLine("     **MENU DISPLAY DE PRODUTOS PARA VENDA**");
-                    Console.WriteLine("1 - Listar Congelados");
-                    Console.WriteLine("Vai entrar aqui o print das listas de produtos da categoria Congelados");
-                    Console.WriteLine("2 - Listar Prateleira");
-                    Console.WriteLine("Vai entrar aqui o print das listas de produtos da categoria Prateleira");
-                    Console.WriteLine("3 - Listar  Enlatados");
-                    Console.WriteLine("Vai entrar aqui o print das listas de produtos da categoria Enlatados");
-
-                    Console.WriteLine("4 - Voltar");
-
-                    selection = int.Parse(Console.ReadLine());
-                    Console.Clear();
-                }
-            }
-
-            static void MenuForSales()
+            void MenuForSales()
             {
                 int selection = 0;
                 while (selection != 4)
                 {
                     Console.WriteLine("     **VENDA DE PRODUTOS**");
-                    Console.WriteLine("Vai imprimir um to string de congelados");
-
-                    Console.WriteLine("1 - Adicionar Congelados");
+                    
+                    Console.WriteLine(pList.ToString());
+                    Console.WriteLine("1 - Adicionar Congelados ao carrinho");
                     Console.WriteLine("Vai entrar aqui o print das listas de produtos da categoria Congelados");
-                    Console.WriteLine("2 - Adicionar Prateleira");
+                    Console.WriteLine("2 - Adicionar Prateleira ao carrinho");
                     Console.WriteLine("Vai entrar aqui o print das listas de produtos da categoria Prateleira");
-                    Console.WriteLine("3 - Adicionar Enlatados");
+                    Console.WriteLine("3 - Adicionar Enlatados ao carrinho");
                     Console.WriteLine("Vai entrar aqui o print das listas de produtos da categoria Enlatados");
 
                     Console.WriteLine("4 - Voltar");
 
                     selection = int.Parse(Console.ReadLine());
                     Console.Clear();
+
+                    switch (selection)
+                    {
+                        case 1:
+                            Console.WriteLine("Escreva o nome do produto que quer adicionar ao carrinho: ");
+                            saleProductName = Console.ReadLine();
+                            Console.WriteLine("Indique a quantidade do produto selecionado que pretende adicionar ao carrinho: ");
+                            saleProductQnt = int.Parse(Console.ReadLine());
+                            //Contacto contactoEncontrado = agenda.FindContact(nomeAProcurar);
+                            Product productMatch = pList.SelectProduct(saleProductName, saleProductQnt);
+                            if (productMatch != null)
+                            {
+                                if (productMatch.productName == saleProductName && saleProductQnt <= pList.productList)
+                                {
+                                    
+                                }
+                            }
+                            break;
+                        case 2: return;
+
+                        default:
+                            Console.WriteLine("Opção Inválida. Tente novamente");
+                            break;
+                    }
+
+
                 }
             }
+
 
         }
     }

@@ -26,12 +26,10 @@ namespace RodriguesBrothersMarket
         }
 
         //Para efetuar login com verificação nome e password:
-
         public User Login(string position, string name, string password)
         {
             foreach (User u in this.userList)
             {
-                //BUGLIST: posição está sensivel a maiusculas e password nao está sensivel a maiusculas
                 if (u.position.Equals(position, StringComparison.OrdinalIgnoreCase) &&
                     u.name.Equals(name, StringComparison.OrdinalIgnoreCase) &&
                     u.password.Equals(password))

@@ -50,6 +50,30 @@ namespace RodriguesBrothersMarket
             return true;
         }
 
+        //Metodo apenas para referência
+        public override string ToString()
+        {
+            string result = "|     TIPO DE PRODUTO     |     NOME ARTIGO     |     QUANTIDADE     |    PREÇO     |" + "\n";
+            foreach (Product s in this.productList)
+            {
+                result += s.productCategory + "     |     " + s.productName + "     |     " + s.productQnt + "     |     " + s.price + "\n";
+            }
+            return result;
+        }
+
+        //Método para selecionar o produto a adicionar ao carrinho:
+        public Product SelectProduct(string productName, int productQnt)
+        {
+            foreach (Product p in this.productList)
+            {
+                if (p.productName.Equals(productName, StringComparison.OrdinalIgnoreCase))
+                {
+                    return p;
+                }
+            }
+            return null;
+        }
+
         //Método para gravar lista de stock:
         public void SaveToFileStock()
         {
