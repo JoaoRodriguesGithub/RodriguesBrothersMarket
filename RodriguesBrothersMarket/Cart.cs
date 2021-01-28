@@ -6,11 +6,11 @@ namespace RodriguesBrothersMarket
 {
     class Cart
     {
-        public List<Invoice> cartList;
+        public List<Product> cartList;
 
         public Cart()
         {
-            this.cartList = new List<Invoice>();
+            this.cartList = new List<Product>();
         }
     }
 

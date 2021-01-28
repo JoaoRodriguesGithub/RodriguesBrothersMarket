@@ -17,9 +17,9 @@ namespace RodriguesBrothersMarket
         //Metodos:
 
         //Para criar novo produto e gravar na lista de produtos:
-        public Product CreateProduct(string productName, int productQnt, int price)
+        public Product CreateProduct(ProductCategory productCategory, string productName, int productQnt, int price)
         {
-            Product newProduct = new Product(productName, productQnt, price);
+            Product newProduct = new Product(productCategory, productName, productQnt, price);
             this.productList.Add(newProduct);
             return newProduct;
         }
@@ -28,6 +28,7 @@ namespace RodriguesBrothersMarket
         public bool DeleteProductFromList(string productName)
         {
             int indexToDelete = -1;
+
             for (int i = 0; i < productList.Count; i++)
             {
                 if (this.productList[i].productName.ToLower().Equals(productName.ToLower()))
@@ -56,15 +57,33 @@ namespace RodriguesBrothersMarket
 
             string fileName = "/Stock.txt";
 
-            StreamWriter streamWriter = new StreamWriter(path + fileName, false);
-
-            foreach (Product item in this.productList)
+            using (StreamWriter streamWriter = new StreamWriter(path + fileName, false))
             {
-                streamWriter.Write(item.productName + "," + item.productQnt + "," + item.price + "\n");
+                foreach (Product item in this.productList)
+                {
+                    item.Serialize(streamWriter);
+                }
             }
-
-            streamWriter.Close();
         }
 
+        public void ReadFromFileStock()
+        {
+            string path = Directory.GetCurrentDirectory();
+            string fileName = "/Stock.txt";
+
+            try
+            {
+                using (StreamReader streamReader = new StreamReader(path + fileName))
+                {
+                    while (!streamReader.EndOfStream)
+                    {
+                        productList.Add(Product.ReadLine(streamReader));
+                    }
+                }
+            }
+            catch (FileNotFoundException)
+            {
+            }
+        }
     }
 }

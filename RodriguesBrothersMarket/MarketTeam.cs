@@ -26,13 +26,15 @@ namespace RodriguesBrothersMarket
         }
 
         //Para efetuar login com verificação nome e password:
-        
+
         public User Login(string position, string name, string password)
         {
             foreach (User u in this.userList)
             {
                 //BUGLIST: posição está sensivel a maiusculas e password nao está sensivel a maiusculas
-                if (u.position.ToLower().Equals(position.ToLower()) && u.name.ToLower().Equals(name.ToLower()) && u.password.ToLower().Equals(password.ToLower()))
+                if (u.position.Equals(position, StringComparison.OrdinalIgnoreCase) &&
+                    u.name.Equals(name, StringComparison.OrdinalIgnoreCase) &&
+                    u.password.Equals(password))
                 {
                     return u;
                 }
@@ -81,16 +83,14 @@ namespace RodriguesBrothersMarket
 
             //abrir o Stream para escrita
 
-            StreamWriter streamWriter = new StreamWriter(path + fileName, false);
-
-            //Percorrer e escrever a lista
-            foreach (User item in this.userList)
+            using (StreamWriter streamWriter = new StreamWriter(path + fileName, false))
             {
-                streamWriter.Write(item.position + "," + item.name + "," + item.password + "\n");
+                //Percorrer e escrever a lista
+                foreach (User item in this.userList)
+                {
+                    streamWriter.Write(item.position + "," + item.name + "," + item.password + "\n");
+                }
             }
-
-            //Fechar a stream de escrita
-            streamWriter.Close();
         }
 
         //Método para ler utilizadores:
@@ -99,18 +99,24 @@ namespace RodriguesBrothersMarket
             string path = Directory.GetCurrentDirectory();
             string fileName = "/Users.txt";
 
-            StreamReader streamReader = new StreamReader(path + fileName);
-
-            while (!streamReader.EndOfStream)
+            try
             {
-                string txtLine = streamReader.ReadLine();
-                string position = txtLine.Split(",")[0];
-                string name = txtLine.Split(",")[1];
-                string password = txtLine.Split(",")[2];
+                using (StreamReader streamReader = new StreamReader(path + fileName))
+                {
+                    while (!streamReader.EndOfStream)
+                    {
+                        string txtLine = streamReader.ReadLine();
+                        string position = txtLine.Split(",")[0];
+                        string name = txtLine.Split(",")[1];
+                        string password = txtLine.Split(",")[2];
 
-                userList.Add(new User(position, name, password));
+                        userList.Add(new User(position, name, password));
+                    }
+                }
+            }
+            catch (FileNotFoundException)
+            {
             }
         }
-
     }
 }

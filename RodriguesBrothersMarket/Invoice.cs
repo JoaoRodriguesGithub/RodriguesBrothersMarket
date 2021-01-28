@@ -13,10 +13,10 @@ namespace RodriguesBrothersMarket
         public string customerName;
         //falta o nome do utilizador
 
-        public Invoice(int invoiceNumber, DateTime invoiceDate, string customerName, string productName, int productQnt, int price) : base(productName, productQnt, price)
+        public Invoice(int invoiceNumber, DateTime invoiceDate, string customerName, string productName, int productQnt, int price) : base(ProductCategory.Frozen, productName, productQnt, price)
         {
 
         }
-        
+
     }
 }
