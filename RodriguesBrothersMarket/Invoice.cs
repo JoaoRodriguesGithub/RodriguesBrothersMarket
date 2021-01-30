@@ -10,63 +10,47 @@ namespace RodriguesBrothersMarket
     [Serializable]
     class Invoice
     {
-        public int invoiceNumber;
+        public int invoiceNumber = 1;
         public DateTime invoiceDate;
         public string customerName;
-        public string invoiceUserName;
+        //falta o nome do utilizador
 
         public List<InvoiceLine> invoiceList;
 
-        //Construtores
         public Invoice()
         {
             invoiceList = new List<InvoiceLine>();
         }
 
-        public Invoice(string customerName, string invoiceUserName)
-        {
-            this.invoiceDate = DateTime.Now;
-            this.invoiceNumber = 1;
-            this.invoiceUserName = invoiceUserName;
-            this.customerName = customerName;
-        }
+        /*
+                public Invoice CreateCompletedInvoice( int invoiceNumer, DateTime invoiceDate, string customerName)
+                {
+                    Invoice newCompletedInvoice = new Invoice(invoiceNumber, invoiceDate, customerName);
 
-        //Método para criar linhas de fatura na lista a faturar:
+                    this.invoiceNumber = invoiceNumber++;
+                    this.invoiceDate = DateTime.Now;
+
+                    return newCompletedInvoice;
+                }
+
+                */
+        public override string ToString()
+        {
+
+            string result = " |    NOME ARTIGO     |     QUANTIDADE     |    PREÇO     |" + "\n";
+            foreach (InvoiceLine s in this.invoiceList)
+            {
+                result += s.productName + "        |                 " + s.productQnt + "     |                  " + s.priceT + "\n";
+            }
+            return result;
+        }
+        //Metodo para criar linha de fatura na lista de Fatura:
         public InvoiceLine CreateInvoiceLine(string productName, int productQnt, int priceT)
         {
             InvoiceLine newInvoiceLine = new InvoiceLine(productName, productQnt, priceT);
             this.invoiceList.Add(newInvoiceLine);
             return newInvoiceLine;
         }
-
-        //Metodo para ver o invoice line
-        public override string ToString()
-        {
-            string result = "|     NOME PRODUTO     |     QUANTIDADE     |     PREÇO     |" + "\n";
-            foreach (InvoiceLine s in this.invoiceList)
-            {
-                result += s.productName + "     |     " + s.productQnt + "     |     " + s.priceT + "\n";
-            }
-            return result;
-        }
-
-        public void SaveInvoice()
-        {
-            string result = "        NOME ARTIGO     |     QUANTIDADE     |    PREÇO     |" + "\n";
-            foreach (InvoiceLine s in this.invoiceList)
-            {
-                result +=  s.productName + "        |                 " + s.productQnt + "     |                  " + s.priceT + "\n";
-            }
-            return result;
-        }
-        //Metodo para criar linha de fatura na lista de Fatura:
-        public InvoiceLine CreateInvoiceLine(string productName, int productQnt, int priceT )
-        {
-            InvoiceLine newInvoiceLine = new InvoiceLine(productName, productQnt, priceT);
-            this.invoiceList.Add(newInvoiceLine);
-            return newInvoiceLine;
-        }
-
 
 
         public void SaveInvoice()
@@ -92,7 +76,7 @@ namespace RodriguesBrothersMarket
             catch (FileNotFoundException)
             {
             }
-        
+
         }
 
         public static Invoice ReadInvoice()
@@ -103,10 +87,10 @@ namespace RodriguesBrothersMarket
             {
                 FileStream fileStream = File.OpenRead(fileName);
                 BinaryFormatter f = new BinaryFormatter();
-              
+
                 Invoice l = f.Deserialize(fileStream) as Invoice;
                 return l;
-                
+
                 fileStream.Close();
             }
             else

@@ -255,8 +255,6 @@ namespace RodriguesBrothersMarket
                             Console.Clear();
                             iList.SaveInvoice();
                             pList.SaveToFileStock();
-                            //Invoice readInvoice = Invoice.ReadInvoice();
-                            //Console.WriteLine(readInvoice.ToString());
                             Console.WriteLine("Introduza o nome do cliente para finalizar a compra e emitir a sua fatura: ");
                             inputCostumerName = Console.ReadLine();
 
@@ -277,7 +275,7 @@ namespace RodriguesBrothersMarket
 
                                     int priceT = (saleProductQnt * productMatch.price);
 
-                                    iList.CreateInvoiceLine(productMatch.productName,saleProductQnt, priceT);
+                                    iList.CreateInvoiceLine(productMatch.productName, saleProductQnt, priceT);
                                 }
                                 else
                                 {
