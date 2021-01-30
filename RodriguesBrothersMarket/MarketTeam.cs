@@ -54,19 +54,13 @@ namespace RodriguesBrothersMarket
         //Método para Apagar Utilizadores:
         public bool RemoveFromUsersList(string name)
         {
-            int indexToRemove = -1;
             for (int i = 0; i < userList.Count; i++)
             {
                 if (this.userList[i].name.ToLower().Equals(name.ToLower()))
                 {
-                    indexToRemove = i;
+                    this.userList.RemoveAt(i);
                     return true;
                 }
-            }
-            if (indexToRemove != -1)
-            {
-                this.userList.RemoveAt(indexToRemove);
-                return true;
             }
             return false;
         }

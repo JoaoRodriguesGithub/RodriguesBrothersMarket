@@ -10,40 +10,54 @@ namespace RodriguesBrothersMarket
     [Serializable]
     class Invoice
     {
-        public int invoiceNumber = 1;
+        public static int id = 0;
+
+        public int invoiceNumber;
         public DateTime invoiceDate;
         public string customerName;
-        //falta o nome do utilizador
+        public string userName;
 
         public List<InvoiceLine> invoiceList;
 
         public Invoice()
         {
-            invoiceList = new List<InvoiceLine>();
+            this.invoiceNumber = ++id;
+            this.invoiceDate = DateTime.Now;
+            this.invoiceList = new List<InvoiceLine>();
         }
 
         /*
-                public Invoice CreateCompletedInvoice( int invoiceNumer, DateTime invoiceDate, string customerName)
-                {
-                    Invoice newCompletedInvoice = new Invoice(invoiceNumber, invoiceDate, customerName);
+        public Invoice CreateCompletedInvoice( int invoiceNumer, DateTime invoiceDate, string customerName)
+        {
+            Invoice newCompletedInvoice = new Invoice(invoiceNumber, invoiceDate, customerName);
 
-                    this.invoiceNumber = invoiceNumber++;
-                    this.invoiceDate = DateTime.Now;
+            this.invoiceNumber = invoiceNumber++;
+            this.invoiceDate = DateTime.Now;
 
-                    return newCompletedInvoice;
-                }
+            return newCompletedInvoice;
+        }
+        */
 
-                */
         public override string ToString()
         {
+            int total = 0;
+            string result = $"NUMERO: {this.invoiceNumber}\n";
+            result += $"DATA: {this.invoiceDate}\n";
+            result += $"UTILIZADOR: {this.userName}\n";
+            result += $"CLIENTE: {this.customerName}\n";
 
-            string result = " |    NOME ARTIGO     |     QUANTIDADE     |    PREÇO     |" + "\n";
+            result += " |    NOME ARTIGO     |     QUANTIDADE     |    PREÇO     |\n";
             foreach (InvoiceLine s in this.invoiceList)
             {
-                result += s.productName + "        |                 " + s.productQnt + "     |                  " + s.priceT + "\n";
+                result += $" | {s.productName}       | {s.productQnt}        | {s.priceT}      |\n";
+                total += s.priceT;
             }
+
+            result += "TOTAL: " + total + "\n";
+            result += "\n";
             return result;
         }
+
         //Metodo para criar linha de fatura na lista de Fatura:
         public InvoiceLine CreateInvoiceLine(string productName, int productQnt, int priceT)
         {
@@ -62,7 +76,6 @@ namespace RodriguesBrothersMarket
 
                 if (File.Exists(fileName))
                 {
-                    Console.WriteLine("Deleting old file");
                     File.Delete(fileName);
                 }
 
@@ -89,9 +102,9 @@ namespace RodriguesBrothersMarket
                 BinaryFormatter f = new BinaryFormatter();
 
                 Invoice l = f.Deserialize(fileStream) as Invoice;
-                return l;
 
                 fileStream.Close();
+                return l;
             }
             else
             {

@@ -28,21 +28,15 @@ namespace RodriguesBrothersMarket
         //Método para Apagar um Produto:
         public bool DeleteProductFromList(string productName)
         {
-            int indexToDelete = -1;
-
             for (int i = 0; i < productList.Count; i++)
             {
-                if (this.productList[i].productName.ToLower().Equals(productName.ToLower()))
+                if (this.productList[i].productName.Equals(productName, StringComparison.OrdinalIgnoreCase))
                 {
-                    indexToDelete = i;
+                    this.productList.RemoveAt(i);
                     return true;
                 }
             }
-            if (indexToDelete != -1)
-            {
-                this.productList.RemoveAt(indexToDelete);
-                return true;
-            }
+
             return false;
         }
         // Método Limpar Stock:

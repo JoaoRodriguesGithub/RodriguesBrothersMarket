@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace RodriguesBrothersMarket
 {
@@ -13,13 +14,12 @@ namespace RodriguesBrothersMarket
             int nProductQnt, nPrice;
             string saleProductName;
             int saleProductQnt;
-            string inputCostumerName;
 
             //Instanciar as listas:
             MarketTeam uList = new MarketTeam();
             Stock pList = new Stock();
-            Invoice iList = new Invoice();
-            Finance fList = new Finance();
+            Finance finance = Finance.ReadFinalInvoice();
+            Invoice.id = finance.allSalesList.Count;
 
             uList.ReadUsersFile();
             pList.ReadFromFileStock();
@@ -53,7 +53,7 @@ namespace RodriguesBrothersMarket
                             if (userMatch.position == "gerente")
                             {
                                 Console.WriteLine("OPERAÇÂO LOGIN: Efetuada com sucesso!");
-                                MenuManager(uList);
+                                MenuManager();
                             }
                             if (userMatch.position == "repositor")
                             {
@@ -100,7 +100,7 @@ namespace RodriguesBrothersMarket
             Console.WriteLine("Obrigado Pela Preferência | R&R Market!!!");
 
             //SUB-MENU GERENTE:
-            static void MenuManager(MarketTeam uList)
+            void MenuManager()
             {
                 int managerSelection = 0;
                 while (managerSelection != 3)
@@ -132,7 +132,8 @@ namespace RodriguesBrothersMarket
                             break;
 
                         case 2:
-                            Console.WriteLine("Funcionalidade de Vender Produtos");  
+                            Console.WriteLine("Funcionalidade de Vender Produtos");
+                            MenuForSales();
                             break;
 
                         case 3: return;
@@ -141,9 +142,11 @@ namespace RodriguesBrothersMarket
                             Console.WriteLine("Opção Inválida. Tente novamente");
                             break;
                     }
-                uList.SaveToFileUsers();
+                
+                    uList.SaveToFileUsers();
                 }
             }
+            
             //SUB-MENU REPOSITOR:
             void MenuReplanisher()
             {
@@ -206,6 +209,7 @@ namespace RodriguesBrothersMarket
                     pList.SaveToFileStock();
                 }
             }
+            
             //SUB-MENU CAIXA:
             void MenuCashier()
             {
@@ -234,9 +238,11 @@ namespace RodriguesBrothersMarket
                     }
                 }
             }
+
             //SUB-MENU PARA VENDA DE PRODUTOS:
             void MenuForSales()
             {
+                Invoice invoice = new Invoice();
                 int selection = 0;
                 while (selection != 2)
                 {
@@ -253,11 +259,17 @@ namespace RodriguesBrothersMarket
                     {
                         case 0:
                             Console.Clear();
-                            iList.SaveInvoice();
-                            pList.SaveToFileStock();
                             Console.WriteLine("Introduza o nome do cliente para finalizar a compra e emitir a sua fatura: ");
-                            inputCostumerName = Console.ReadLine();
+                            invoice.userName = nUser;
+                            invoice.customerName = Console.ReadLine();
 
+                            Console.WriteLine(invoice.ToString());
+
+                            invoice.SaveInvoice();
+                            finance.AddInvoice(invoice);
+                            finance.SaveFinalInvoice();
+                            pList.SaveToFileStock();
+                            
                             break;
                         
                         case 1:
@@ -275,7 +287,7 @@ namespace RodriguesBrothersMarket
 
                                     int priceT = (saleProductQnt * productMatch.price);
 
-                                    iList.CreateInvoiceLine(productMatch.productName, saleProductQnt, priceT);
+                                    invoice.CreateInvoiceLine(productMatch.productName, saleProductQnt, priceT);
                                 }
                                 else
                                 {
