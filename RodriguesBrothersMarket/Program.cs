@@ -16,8 +16,8 @@ namespace RodriguesBrothersMarket
 
             MarketTeam uList = new MarketTeam();
             Stock pList = new Stock();
-            Invoice n = Invoice.ReadInvoice();
-            Console.WriteLine(n.invoiceList[0].productName);
+            Invoice iList = new Invoice();
+            //Console.WriteLine(n.invoiceList[0].productName);
 
             /*
             n.invoiceList.Add(new InvoiceLine("batatas", 3, 6));
@@ -46,7 +46,7 @@ namespace RodriguesBrothersMarket
                     case 1:
                         Console.WriteLine("     **Efetue o seu login**");
 
-                        Console.WriteLine("Insira a função do utilizador: ");
+                        Console.WriteLine("Insira a função do utilizador: ( GERENTE | REPPOSITOR | CAIXA )");
                         nPosition = Console.ReadLine();
                         Console.WriteLine("Insira o nome de utilizador: ");
                         nUser = Console.ReadLine();
@@ -171,7 +171,7 @@ namespace RodriguesBrothersMarket
                     switch (replanisherSelection)
                     {
                         case 1:
-                            Console.WriteLine("Intoduza a categoria(Congelados|Prateleira|Enlatados): ");
+                            Console.WriteLine("Intoduza a categoria(CONGELADOS|PRATELEIRA|E): ");
                             nCategory = Console.ReadLine();
                             Console.WriteLine("Intoduza o nome do produto: ");
                             nName = Console.ReadLine();
@@ -251,8 +251,8 @@ namespace RodriguesBrothersMarket
                     Console.WriteLine("     **VENDA DE PRODUTOS**");
                     
                     Console.WriteLine(pList.ToString());
+                    Console.WriteLine("0 - Finalizar Compras do carrinho");
                     Console.WriteLine("1 - Adicionar Produtos ao carrinho");
-       
                     Console.WriteLine("4 - Voltar");
 
                     selection = int.Parse(Console.ReadLine());
@@ -260,27 +260,36 @@ namespace RodriguesBrothersMarket
 
                     switch (selection)
                     {
+                        case 0:
+                            iList.SaveInvoice();
+                            pList.SaveToFileStock();
+                            break;
+
                         case 1:
                             Console.WriteLine("Escreva o nome do produto que quer adicionar ao carrinho: ");
                             saleProductName = Console.ReadLine();
                             Console.WriteLine("Indique a quantidade do produto selecionado que pretende adicionar ao carrinho: ");
                             saleProductQnt = int.Parse(Console.ReadLine());
-                            //Contacto contactoEncontrado = agenda.FindContact(nomeAProcurar);
                             Product productMatch = pList.SelectProduct(saleProductName, saleProductQnt);
                             if (productMatch != null)
                             {
                                 if (productMatch.productName == saleProductName && productMatch.productQnt >= saleProductQnt)
                                 {
                                     productMatch.productQnt -= saleProductQnt;
-                                    n.invoiceList.Add(new InvoiceLine(productMatch.productName, saleProductQnt, productMatch.price));
+                                    iList.CreateInvoiceLine(productMatch.productName, saleProductQnt, productMatch.price);
                                 }
                                 else
                                 {
-                                    Console.WriteLine("lamento mas só dipomos de " + productMatch.productQnt + ".");
+                                    Console.WriteLine("lamento mas só dispomos de " + productMatch.productQnt + ".");
                                 }
                             }
+
                             break;
-                        case 2: return;
+
+                        case 0:
+                            pList.SaveToFileStock();
+                         
+                            return;
 
                         default:
                             Console.WriteLine("Opção Inválida. Tente novamente");
