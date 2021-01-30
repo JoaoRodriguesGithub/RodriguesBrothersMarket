@@ -284,8 +284,8 @@ namespace RodriguesBrothersMarket
                                     Console.WriteLine("Lamentos, mas só dipomos de " + productMatch.productQnt + "unidades.");
                                 }
                             }
+
                             break;
-                        case 2: return;
 
                         default:
                             Console.WriteLine("Opção Inválida. Tente novamente");

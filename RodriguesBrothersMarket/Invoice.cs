@@ -52,22 +52,47 @@ namespace RodriguesBrothersMarket
 
         public void SaveInvoice()
         {
-            string location = Directory.GetCurrentDirectory();
-            string fileName = "Fatura.txt";
-
-            if (File.Exists(fileName))
+            string result = "        NOME ARTIGO     |     QUANTIDADE     |    PREÇO     |" + "\n";
+            foreach (InvoiceLine s in this.invoiceList)
             {
-                Console.WriteLine("Deleting old file");
-                File.Delete(fileName);
+                result +=  s.productName + "        |                 " + s.productQnt + "     |                  " + s.priceT + "\n";
             }
+            return result;
+        }
+        //Metodo para criar linha de fatura na lista de Fatura:
+        public InvoiceLine CreateInvoiceLine(string productName, int productQnt, int priceT )
+        {
+            InvoiceLine newInvoiceLine = new InvoiceLine(productName, productQnt, priceT);
+            this.invoiceList.Add(newInvoiceLine);
+            return newInvoiceLine;
+        }
 
-            FileStream fileStream = File.Create(fileName);
-            BinaryFormatter f = new BinaryFormatter();
 
-            f.Serialize(fileStream, this);
-           
-            fileStream.Close();
 
+        public void SaveInvoice()
+        {
+            try
+            {
+                string location = Directory.GetCurrentDirectory();
+                string fileName = "Fatura.txt";
+
+                if (File.Exists(fileName))
+                {
+                    Console.WriteLine("Deleting old file");
+                    File.Delete(fileName);
+                }
+
+                FileStream fileStream = File.Create(fileName);
+                BinaryFormatter f = new BinaryFormatter();
+
+                f.Serialize(fileStream, this);
+
+                fileStream.Close();
+            }
+            catch (FileNotFoundException)
+            {
+            }
+        
         }
 
         public static Invoice ReadInvoice()
