@@ -10,13 +10,13 @@ namespace RodriguesBrothersMarket
         //Lista de Utilizadores:
         public List<User> userList;
 
+        //Construtores
         public MarketTeam()
         {
             this.userList = new List<User>();
         }
 
-        //Metodos:
-
+        //MÉTODOS:
         //Para criar utilizadores e gravar na lista de utilizadores:
         public User CreateUser(string position, string name, string password)
         {
@@ -66,8 +66,9 @@ namespace RodriguesBrothersMarket
             if (indexToRemove != -1)
             {
                 this.userList.RemoveAt(indexToRemove);
+                return true;
             }
-            return true;
+            return false;
         }
 
         //Método para Gravar Utilizadores

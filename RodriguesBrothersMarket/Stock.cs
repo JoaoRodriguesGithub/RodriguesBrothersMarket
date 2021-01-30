@@ -40,8 +40,9 @@ namespace RodriguesBrothersMarket
             if (indexToDelete != -1)
             {
                 this.productList.RemoveAt(indexToDelete);
+                return true;
             }
-            return true;
+            return false;
         }
         // Método Limpar Stock:
         public bool ClearStock()

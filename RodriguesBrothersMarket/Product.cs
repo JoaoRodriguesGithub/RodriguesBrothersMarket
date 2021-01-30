@@ -17,11 +17,13 @@ namespace RodriguesBrothersMarket
     [Serializable]
     class Product
     {
+        //Atributos  
         public ProductCategory productCategory;
         public string productName;
         public int productQnt;
         public int price;
 
+        //Construtores:
         public Product(ProductCategory productCategory, string productName, int productQnt, int price)
         {
             this.productCategory = productCategory;
@@ -29,7 +31,8 @@ namespace RodriguesBrothersMarket
             this.productQnt = productQnt;
             this.price = price;
         }
-
+        
+        //MÉTODOS: 
         public void Serialize(StreamWriter writer)
         {
             writer.Write(this.productCategory.ToString());
@@ -54,6 +57,7 @@ namespace RodriguesBrothersMarket
             return new Product(category, productName, productQnt, price);
         }
 
+        //Método para converter o enum:
         public static ProductCategory ConvertCategory(string category)
         {
             if (category.Equals("congelados", StringComparison.OrdinalIgnoreCase))
