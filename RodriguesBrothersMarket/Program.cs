@@ -30,7 +30,6 @@ namespace RodriguesBrothersMarket
 
             pList.ReadFromFileStock();
 
-
             while (selection != 3)
             {
                 Console.WriteLine("     **RodriguesBrothersMarket**");
@@ -263,6 +262,8 @@ namespace RodriguesBrothersMarket
                         case 0:
                             iList.SaveInvoice();
                             pList.SaveToFileStock();
+                            Invoice readInvoice = Invoice.ReadInvoice();
+                            Console.WriteLine(readInvoice.ToString());
                             break;
 
                         case 1:
@@ -276,7 +277,10 @@ namespace RodriguesBrothersMarket
                                 if (productMatch.productName == saleProductName && productMatch.productQnt >= saleProductQnt)
                                 {
                                     productMatch.productQnt -= saleProductQnt;
-                                    iList.CreateInvoiceLine(productMatch.productName, saleProductQnt, productMatch.price);
+
+                                    int priceT = (saleProductQnt * productMatch.price);
+
+                                    iList.CreateInvoiceLine(productMatch.productName, saleProductQnt, priceT);
                                 }
                                 else
                                 {
@@ -285,11 +289,6 @@ namespace RodriguesBrothersMarket
                             }
 
                             break;
-
-                        case 0:
-                            pList.SaveToFileStock();
-                         
-                            return;
 
                         default:
                             Console.WriteLine("Opção Inválida. Tente novamente");

@@ -21,13 +21,25 @@ namespace RodriguesBrothersMarket
         {
             invoiceList = new List<InvoiceLine>();
         }
-        //Metodo para criar linha de fatura na lista de Fatura:
-        public InvoiceLine CreateInvoiceLine( string productName, int productQnt, int price )
+
+        public override string ToString()
         {
-            InvoiceLine newInvoiceLine = new InvoiceLine(productName, productQnt, price);
+            string result = "        NOME ARTIGO     |     QUANTIDADE     |    PREÇO     |" + "\n";
+            foreach (InvoiceLine s in this.invoiceList)
+            {
+                result +=  s.productName + "        |                 " + s.productQnt + "     |                  " + s.priceT + "\n";
+            }
+            return result;
+        }
+        //Metodo para criar linha de fatura na lista de Fatura:
+        public InvoiceLine CreateInvoiceLine(string productName, int productQnt, int priceT )
+        {
+            InvoiceLine newInvoiceLine = new InvoiceLine(productName, productQnt, priceT);
             this.invoiceList.Add(newInvoiceLine);
             return newInvoiceLine;
         }
+
+
 
         public void SaveInvoice()
         {
