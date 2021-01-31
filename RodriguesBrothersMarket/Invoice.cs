@@ -26,18 +26,6 @@ namespace RodriguesBrothersMarket
             this.invoiceList = new List<InvoiceLine>();
         }
 
-        /*
-        public Invoice CreateCompletedInvoice( int invoiceNumer, DateTime invoiceDate, string customerName)
-        {
-            Invoice newCompletedInvoice = new Invoice(invoiceNumber, invoiceDate, customerName);
-
-            this.invoiceNumber = invoiceNumber++;
-            this.invoiceDate = DateTime.Now;
-
-            return newCompletedInvoice;
-        }
-        */
-
         public override string ToString()
         {
             int total = 0;
