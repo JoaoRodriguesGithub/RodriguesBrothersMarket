@@ -71,7 +71,7 @@ namespace RodriguesBrothersMarket
                     case 2:
                         Console.WriteLine("     **Criar Funcionário**");
 
-                        Console.WriteLine("Insira a função do novo utilizador:");
+                        Console.WriteLine("Insira a função do novo utilizador (GERENTE|REPOSITOR|CAIXA):");
                         nPosition = Console.ReadLine();
 
                         Console.WriteLine("Insira o nome do novo utilizador:");
@@ -103,13 +103,14 @@ namespace RodriguesBrothersMarket
             void MenuManager()
             {
                 int managerSelection = 0;
-                while (managerSelection != 3)
+                while (managerSelection != 4)
                 {
                     Console.WriteLine("     **MENU DO GERENTE**");
 
                     Console.WriteLine("1 - Apagar Funcionários");
                     Console.WriteLine("2 - Vender Produtos");
-                    Console.WriteLine("3 - Voltar");
+                    Console.WriteLine("3 - Listar todas as faturas");
+                    Console.WriteLine("4 - Voltar");
 
                     managerSelection = int.Parse(Console.ReadLine());
                     Console.Clear();
@@ -132,11 +133,14 @@ namespace RodriguesBrothersMarket
                             break;
 
                         case 2:
-                            Console.WriteLine("Funcionalidade de Vender Produtos");
                             MenuForSales();
                             break;
 
-                        case 3: return;
+                        case 3:
+                            Console.WriteLine("LISTAGEM DE TODAS AS FATURAS:");
+                            Console.WriteLine(finance.ToString());
+                            break;
+                        case 4: return;
 
                         default:
                             Console.WriteLine("Opção Inválida. Tente novamente");
@@ -291,7 +295,7 @@ namespace RodriguesBrothersMarket
                                 }
                                 else
                                 {
-                                    Console.WriteLine("Lamentos, mas só dipomos de " + productMatch.productQnt + "unidades.");
+                                    Console.WriteLine("Lamentamos, mas só dipomos de " + productMatch.productQnt + "unidades.");
                                 }
                             }
 
