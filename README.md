@@ -1,5 +1,5 @@
 # RodriguesBrothersMarket
-IPCA_DWM_LP1_TP - Market
+Final project for the Programming Languages I class
 
 On this final class project was proposed to be developed program that simulates a supermarket management system in C# programming language:
 
